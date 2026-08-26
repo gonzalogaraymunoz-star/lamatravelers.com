@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ExperienceCard from '@/components/ExperienceCard';
 import type { PublicProduct } from '@/lib/catalog';
-import { publicGroup } from '@/lib/catalog';
+import { publicGroup, publicProductName } from '@/lib/catalog';
 
 export default function CatalogClient({ products }: { products: PublicProduct[] }) {
   const params = useSearchParams();
@@ -22,7 +22,7 @@ export default function CatalogClient({ products }: { products: PublicProduct[] 
     return products.filter((product) => {
       const group = publicGroup(product);
       const matchesCategory = category === 'Todos' || group === category;
-      const haystack = `${product.name} ${product.description || ''} ${product.stops || ''} ${group}`.toLocaleLowerCase('es');
+      const haystack = `${publicProductName(product)} ${product.detail || product.description || ''} ${product.know_more || ''} ${product.stops || ''} ${group}`.toLocaleLowerCase('es');
       return matchesCategory && (!term || haystack.includes(term));
     });
   }, [products, category, search]);

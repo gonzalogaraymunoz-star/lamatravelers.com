@@ -18,6 +18,20 @@ export type PublicProduct = {
   snack: string | null;
   description: string | null;
   public_origin: string | null;
+  display_name: string | null;
+  altitude: string | null;
+  difficulty: string | null;
+  minimum_age: string | null;
+  duration_label: string | null;
+  detail: string | null;
+  pickup_location: string | null;
+  pickup_time: string | null;
+  know_more: string | null;
+  itinerary: string[] | null;
+  includes: string[] | null;
+  excludes: string[] | null;
+  recommendations: string[] | null;
+  observations: string | null;
   cover: CatalogImage | null;
   gallery: CatalogImage[];
 };
@@ -119,13 +133,19 @@ export function publicGroup(product: Pick<PublicProduct, 'category'>) {
   }
 }
 
-export function productDuration(product: Pick<PublicProduct, 'duration_hours'>) {
+export function publicProductName(product: Pick<PublicProduct, 'name' | 'display_name'>) {
+  return product.display_name || product.name;
+}
+
+export function productDuration(product: Pick<PublicProduct, 'duration_hours' | 'duration_label'>) {
+  if (product.duration_label) return product.duration_label;
   if (!product.duration_hours) return 'A coordinar';
   const hours = Number(product.duration_hours);
   return Number.isInteger(hours) ? `${hours} h` : `${hours.toFixed(1).replace('.0', '')} h`;
 }
 
-export function productStops(product: Pick<PublicProduct, 'stops'>) {
+export function productStops(product: Pick<PublicProduct, 'stops' | 'itinerary'>) {
+  if (product.itinerary?.length) return product.itinerary;
   if (!product.stops) return [];
   return product.stops.split(/\s*\+\s*|\s*·\s*|\s*\|\s*/).map((stop) => stop.trim()).filter(Boolean);
 }

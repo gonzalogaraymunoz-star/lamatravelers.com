@@ -4,9 +4,9 @@ export const site = {
   name: 'LAMA Travelers',
   url: 'https://lamatravelers.com',
   phone: '+56 9 7884 0740',
-  phoneRaw: '56978840740',
   email: 'travelerslama@gmail.com',
   location: 'San Pedro de Atacama, Chile',
+  salesWhatsAppUrl: 'https://wa.me/message/RCWUPM3G6ELXP1',
 };
 
 export const images = {

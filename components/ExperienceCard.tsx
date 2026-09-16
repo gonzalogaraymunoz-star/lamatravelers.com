@@ -7,7 +7,7 @@ export default function ExperienceCard({ product }: { product: PublicProduct }) 
   return (
     <Link href={`/experiencias/${product.product_slug}`} className="experience-card">
       <div className="card-image-wrap">
-        <img src={product.cover?.url || fallbackImage} alt={name} className="card-image" loading="lazy" />
+        <img src={product.hero?.url || fallbackImage} alt={name} className="card-image" loading="lazy" />
       </div>
       <div className="card-body">
         <div className="eyebrow">{publicGroup(product)} · {productDuration(product)}</div>

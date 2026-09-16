@@ -1,0 +1,10 @@
+.brand{display:inline-flex;align-items:center;line-height:0}
+.brand img{width:auto;height:58px;object-fit:contain}
+.footer-brand{line-height:0}
+.footer-brand img{width:auto;height:116px;object-fit:contain;object-position:left center}
+.nav-sales{border:1px solid currentColor;padding:11px 16px;border-radius:999px;font-weight:700}
+.whatsapp-float{position:fixed;right:22px;bottom:22px;z-index:80;display:inline-flex;align-items:center;gap:10px;padding:13px 17px;border-radius:999px;background:#11110f;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.2);font-size:13px;font-weight:700;transition:transform .2s ease,box-shadow .2s ease}
+.whatsapp-float:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(0,0,0,.26)}
+.whatsapp-float svg{width:20px;height:20px;flex:none}
+.contact-actions{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 18px}
+@media(max-width:1000px){.brand img{height:50px}.nav-sales{margin-top:6px}.whatsapp-float{right:14px;bottom:14px;padding:13px;width:52px;height:52px;justify-content:center}.whatsapp-float span{display:none}.footer-brand img{height:100px}}

@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     product.recommendations?.length
   );
   const wa = `https://wa.me/${site.phoneRaw}?text=${encodeURIComponent(`Hola LAMA, quiero consultar disponibilidad para ${name}.`)}`;
-  const hero = product.cover?.url || fallbackImage;
+  const hero = product.hero?.url || fallbackImage;
 
   return <>
     <section className="product-hero">
@@ -148,7 +148,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <div className="eyebrow">Galería</div>
             <div className="product-gallery">
               {product.gallery.map((image) => (
-                <figure key={image.storage_path}>
+                <figure key={`${image.storage_path}-${image.sort_order}`}>
                   <img src={image.url} alt={image.title} loading="lazy" />
                 </figure>
               ))}

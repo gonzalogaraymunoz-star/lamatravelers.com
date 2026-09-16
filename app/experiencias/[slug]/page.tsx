@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     product.includes?.length ||
     product.recommendations?.length
   );
-  const wa = `https://wa.me/${site.phoneRaw}?text=${encodeURIComponent(`Hola LAMA, quiero consultar disponibilidad para ${name}.`)}`;
+  const wa = site.salesWhatsAppUrl;
   const hero = product.hero?.url || fallbackImage;
 
   return <>

@@ -2,7 +2,7 @@ export type CatalogImage = {
   product_slug: string | null;
   title: string;
   storage_path: string;
-  image_role: 'cover' | 'gallery' | 'editorial' | string;
+  image_role: 'hero' | 'cover' | 'gallery' | 'editorial' | string;
   sort_order: number;
   active: boolean;
   url: string;
@@ -32,6 +32,7 @@ export type PublicProduct = {
   excludes: string[] | null;
   recommendations: string[] | null;
   observations: string | null;
+  hero: CatalogImage | null;
   cover: CatalogImage | null;
   gallery: CatalogImage[];
 };
@@ -84,7 +85,7 @@ export async function getEditorialImages(prefix?: string): Promise<CatalogImage[
   return prefix ? images.filter((image) => image.storage_path.startsWith(prefix)) : images;
 }
 
-async function rawProducts(slug?: string): Promise<Omit<PublicProduct, 'cover' | 'gallery'>[]> {
+async function rawProducts(slug?: string): Promise<Omit<PublicProduct, 'hero' | 'cover' | 'gallery'>[]> {
   const requestHeaders = headers();
   if (!requestHeaders) return [];
   try {
@@ -95,7 +96,7 @@ async function rawProducts(slug?: string): Promise<Omit<PublicProduct, 'cover' |
       next: { revalidate: 300 },
     });
     if (!response.ok) throw new Error(`get_public_products ${response.status}`);
-    return await response.json() as Omit<PublicProduct, 'cover' | 'gallery'>[];
+    return await response.json() as Omit<PublicProduct, 'hero' | 'cover' | 'gallery'>[];
   } catch (error) {
     console.error('get_public_products:', error);
     return [];
@@ -113,11 +114,25 @@ export async function getPublicProduct(slug: string): Promise<PublicProduct | nu
   return product ? attachImages(product, images) : null;
 }
 
-function attachImages(product: Omit<PublicProduct, 'cover' | 'gallery'>, images: CatalogImage[]): PublicProduct {
-  const own = images.filter((image) => image.product_slug === product.product_slug);
-  const cover = own.find((image) => image.image_role === 'cover') ?? null;
-  const gallery = own.filter((image) => image.image_role === 'gallery');
-  return { ...product, cover, gallery };
+function attachImages(
+  product: Omit<PublicProduct, 'hero' | 'cover' | 'gallery'>,
+  images: CatalogImage[],
+): PublicProduct {
+  const own = images
+    .filter((image) => image.product_slug === product.product_slug)
+    .sort((a, b) => a.sort_order - b.sort_order);
+
+  // `hero` is now the canonical main image for a tourism experience.
+  // `cover` remains as a legacy fallback for wellness, care and transfers.
+  const explicitHero = own.find((image) => image.image_role === 'hero') ?? null;
+  const legacyCover = own.find((image) => image.image_role === 'cover') ?? null;
+  const hero = explicitHero ?? legacyCover;
+  const cover = legacyCover ?? hero;
+  const gallery = own.filter(
+    (image) => image.image_role === 'gallery' && image.storage_path !== hero?.storage_path,
+  );
+
+  return { ...product, hero, cover, gallery };
 }
 
 export function publicGroup(product: Pick<PublicProduct, 'category'>) {

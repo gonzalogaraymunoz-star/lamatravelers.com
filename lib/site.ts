@@ -10,11 +10,11 @@ export const site = {
 };
 
 export const images = {
-  hero: storageUrl('valle_de_la_luna/cover.jpg'),
-  desert: storageUrl('vallecito/cover.jpg'),
-  altiplano: storageUrl('piedras_rojas/cover.jpg'),
-  mountain: storageUrl('cerro_toco/cover.jpg'),
-  water: storageUrl('termas_de_puritama/cover.jpg'),
+  hero: storageUrl('web-tours/products/valle_de_la_luna/cover.png'),
+  desert: storageUrl('web-tours/products/vallecito/cover.png'),
+  altiplano: storageUrl('web-tours/products/piedras_rojas/cover.png'),
+  mountain: storageUrl('web-tours/products/cerro_toco/cover.png'),
+  water: storageUrl('web-tours/products/termas_de_puritama/cover.png'),
   transport: storageUrl('transporte/trf_aeropuerto/cover.jpg'),
   editorialHero: storageUrl('editorial/01_silencio_ancestral.jpg'),
 };

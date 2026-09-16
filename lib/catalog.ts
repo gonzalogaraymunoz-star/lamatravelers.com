@@ -69,7 +69,7 @@ export async function getCatalogImages(slug?: string | null): Promise<CatalogIma
   try {
     const response = await fetch(`${supabaseUrl}/rest/v1/catalog_images?${params}`, {
       headers: requestHeaders,
-      next: { revalidate: 300 },
+      cache: 'no-store',
     });
     if (!response.ok) throw new Error(`catalog_images ${response.status}`);
     const data = await response.json() as Omit<CatalogImage, 'url'>[];
@@ -93,7 +93,7 @@ async function rawProducts(slug?: string): Promise<Omit<PublicProduct, 'hero' | 
       method: 'POST',
       headers: requestHeaders,
       body: JSON.stringify({ p_slug: slug ?? null }),
-      next: { revalidate: 300 },
+      cache: 'no-store',
     });
     if (!response.ok) throw new Error(`get_public_products ${response.status}`);
     return await response.json() as Omit<PublicProduct, 'hero' | 'cover' | 'gallery'>[];

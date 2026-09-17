@@ -2,7 +2,7 @@ import Link from 'next/link';
 import ExperienceCard from '@/components/ExperienceCard';
 import EditorialSheet from '@/components/EditorialSheet';
 import Planner from '@/components/Planner';
-import { getEditorialImages, getPublicProducts } from '@/lib/catalog';
+import { getEditorialImages, getPublicProducts, isTourismProduct } from '@/lib/catalog';
 import { images } from '@/lib/site';
 
 export const dynamic = 'force-dynamic';
@@ -17,7 +17,8 @@ const preferredSlugs = [
 ];
 
 export default async function Home() {
-  const [products, editorial] = await Promise.all([getPublicProducts(), getEditorialImages('editorial/experiencial/')]);
+  const [allProducts, editorial] = await Promise.all([getPublicProducts(), getEditorialImages('editorial/experiencial/')]);
+  const products = allProducts.filter(isTourismProduct);
   const selected = preferredSlugs.map((slug) => products.find((product) => product.product_slug === slug)).filter(Boolean).slice(0, 6);
   const immersion = editorial.find((image) => image.storage_path.endsWith('01_atacama_inmersivo.jpg'));
   const matrix = editorial.find((image) => image.storage_path.endsWith('02_matriz_de_sintonia.jpg'));
@@ -42,7 +43,7 @@ export default async function Home() {
       <div className="eyebrow">LAMA Travelers</div>
       <div className="split">
         <h2>No se trata de hacer más tours.<br />Se trata de vivir mejor el desierto.</h2>
-        <p>Conectamos paisajes, cultura, movimiento, cielo, bienestar y traslados en una misma estadía. Puedes conocer cada producto por separado o construir una secuencia completa según tus días, ritmo e intereses.</p>
+        <p>Conectamos paisajes, cultura, movimiento y cielo en una misma estadía. Cuando el viaje lo necesita, también podemos sumar bienestar y traslados como servicios complementarios dentro de la planificación.</p>
       </div>
     </section>
 
@@ -51,15 +52,13 @@ export default async function Home() {
     <section className="section compact">
       <div className="section-head">
         <div><div className="eyebrow">Empieza por aquí</div><h2>¿Cómo quieres vivir Atacama?</h2></div>
-        <Link className="text-link" href="/experiencias">Ver todo el catálogo ↗</Link>
+        <Link className="text-link" href="/experiencias">Ver todas las experiencias ↗</Link>
       </div>
       <div className="category-grid">
         <Link href="/experiencias?categoria=Desierto" className="category-card"><span>01</span><h3>Desierto</h3><p>Valles, salares, lagunas y paisajes esenciales de San Pedro.</p></Link>
         <Link href="/experiencias?categoria=Altiplano" className="category-card"><span>02</span><h3>Altiplano</h3><p>Géiseres, Piedras Rojas, lagunas y rutas de gran escala.</p></Link>
         <Link href="/experiencias?categoria=Cielo" className="category-card"><span>03</span><h3>Cielo</h3><p>Noches atacameñas, astronomía y formatos privados.</p></Link>
         <Link href="/alta-montana" className="category-card"><span>04</span><h3>Montaña</h3><p>Ascensiones con preparación, aclimatación y lectura de condiciones.</p></Link>
-        <Link href="/wellness" className="category-card"><span>05</span><h3>Wellness</h3><p>Termas, terapias y una capa de bienestar integrada a la estadía.</p></Link>
-        <Link href="/transfers" className="category-card"><span>06</span><h3>Movilidad</h3><p>Aeropuerto, frontera, pueblo y logística especial.</p></Link>
       </div>
     </section>
 
@@ -67,8 +66,8 @@ export default async function Home() {
 
     <section className="section">
       <div className="section-head">
-        <div><div className="eyebrow">Selección LAMA</div><h2>Conoce el producto antes de elegirlo.</h2></div>
-        <p className="section-copy">Cada tarjeta abre una ficha conectada al catálogo de Supabase: duración, horario, recorrido, formato e imágenes reales disponibles para ese producto.</p>
+        <div><div className="eyebrow">Selección LAMA</div><h2>Conoce la experiencia antes de elegirla.</h2></div>
+        <p className="section-copy">Cada tarjeta abre una ficha conectada al catálogo de Supabase: duración, horario, recorrido, formato e imágenes reales disponibles para esa experiencia.</p>
       </div>
       {selected.length > 0 ? <div className="experience-grid">{selected.map((product) => <ExperienceCard key={product!.product_slug} product={product!} />)}</div> : <p className="data-note">El catálogo se conecta al configurar la llave pública de Supabase en Vercel.</p>}
     </section>
@@ -79,6 +78,6 @@ export default async function Home() {
       <Planner />
     </section>
 
-    <section className="section proof"><div className="proof-grid"><div><strong>{products.length || '—'}</strong><span>productos públicos conectados</span></div><div><strong>1</strong><span>catálogo central en Supabase</span></div><div><strong>1</strong><span>equipo coordinando tu estadía</span></div><div><strong>Vigente</strong><span>registro SERNATUR</span></div></div></section>
+    <section className="section proof"><div className="proof-grid"><div><strong>{products.length || '—'}</strong><span>experiencias turísticas conectadas</span></div><div><strong>1</strong><span>catálogo central en Supabase</span></div><div><strong>1</strong><span>equipo coordinando tu estadía</span></div><div><strong>Vigente</strong><span>registro SERNATUR</span></div></div></section>
   </>;
 }

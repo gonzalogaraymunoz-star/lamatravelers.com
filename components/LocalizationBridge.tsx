@@ -254,8 +254,9 @@ const D: Record<string, Translation> = {
   },
 };
 
-const textState = new WeakMap<Text, { original: string; last: string }>();
-const attrState = new WeakMap<Element, Map<string, { original: string; last: string }>>();
+const textState = new WeakMap<object, { original: string; last: string }>();
+const attrState = new WeakMap<object, Map<string, { original: string; last: string }>>();
+const ATTRS: string[] = ['placeholder', 'title', 'aria-label'];
 
 function dynamic(text: string, language: AppLanguage): string {
   if (language === 'es') return text;
@@ -266,63 +267,81 @@ function dynamic(text: string, language: AppLanguage): string {
     return T(m[1] + ' tourism experiences connected', m[1] + ' experiências turísticas conectadas');
   }
   if ((m = text.match(/^(\d+) experiencias turísticas organizadas para conocer qué vas a vivir antes de consultar disponibilidad\.$/))) {
-    return T(m[1] + ' tourism experiences organized so you know what you will experience before checking availability.', m[1] + ' experiências turísticas organizadas para você conhecer o que vai viver antes de consultar disponibilidade.');
+    return T(
+      m[1] + ' tourism experiences organized so you know what you will experience before checking availability.',
+      m[1] + ' experiências turísticas organizadas para você conhecer o que vai viver antes de consultar disponibilidade.'
+    );
   }
   if ((m = text.match(/^¿Quieres incluir (.+) en tu viaje\?$/))) {
     return T('Would you like to include ' + m[1] + ' in your trip?', 'Quer incluir ' + m[1] + ' na sua viagem?');
   }
   if ((m = text.match(/^(\d+) noche(s)? · (\d+) día(s)?$/))) {
-    return T(m[1] + (m[1] === '1' ? ' night' : ' nights') + ' · ' + m[3] + (m[3] === '1' ? ' day' : ' days'), m[1] + (m[1] === '1' ? ' noite' : ' noites') + ' · ' + m[3] + (m[3] === '1' ? ' dia' : ' dias'));
+    return T(
+      m[1] + (m[1] === '1' ? ' night' : ' nights') + ' · ' + m[3] + (m[3] === '1' ? ' day' : ' days'),
+      m[1] + (m[1] === '1' ? ' noite' : ' noites') + ' · ' + m[3] + (m[3] === '1' ? ' dia' : ' dias')
+    );
   }
   if ((m = text.match(/^Solicitud (.+) registrada\. Abrimos WhatsApp para continuar\.$/))) {
-    return T('Request ' + m[1] + ' registered. We are opening WhatsApp to continue.', 'Solicitação ' + m[1] + ' registrada. Vamos abrir o WhatsApp para continuar.');
+    return T(
+      'Request ' + m[1] + ' registered. We are opening WhatsApp to continue.',
+      'Solicitação ' + m[1] + ' registrada. Vamos abrir o WhatsApp para continuar.'
+    );
   }
   return text;
 }
 
 export function translateUiText(value: string, language: AppLanguage): string {
   if (language === 'es') return value;
-  const lead = value.match(/^(\s*)(.*?)(\s*)$/s);
+  const lead = value.match(/^(\s*)([\s\S]*?)(\s*)$/);
   if (!lead) return value;
-  const [, before, core, after] = lead;
+  const before = lead[1] || '';
+  const core = lead[2] || '';
+  const after = lead[3] || '';
   if (!core) return value;
-  const translated = D[core]?.[language] || dynamic(core, language);
+  const item = D[core];
+  const translated = item
+    ? (language === 'en' ? item.en : item['pt-BR'])
+    : dynamic(core, language);
   return before + translated + after;
 }
 
-function blocked(node: Node) {
-  const parent = node.nodeType === Node.ELEMENT_NODE ? node as Element : node.parentElement;
-  return Boolean(parent?.closest('script,style,code,pre,[data-no-translate="true"]'));
+function blocked(node: any): boolean {
+  const parent = node?.nodeType === 1 ? node : node?.parentElement;
+  return Boolean(parent?.closest?.('script,style,code,pre,[data-no-translate="true"]'));
 }
 
-function processText(node: Text, language: AppLanguage) {
-  if (blocked(node)) return;
-  const current = node.nodeValue || '';
+function processText(node: any, language: AppLanguage) {
+  if (!node || blocked(node)) return;
+  const current = String(node.nodeValue || '');
   if (!current.trim()) return;
-  let state = textState.get(node);
+
+  const key = node as object;
+  let state = textState.get(key);
   if (!state) {
     state = { original: current, last: current };
-    textState.set(node, state);
+    textState.set(key, state);
   } else if (current !== state.last) {
     state.original = current;
   }
+
   const next = translateUiText(state.original, language);
   state.last = next;
   if (current !== next) node.nodeValue = next;
 }
 
-const ATTRS = ['placeholder', 'title', 'aria-label'];
+function processElement(el: any, language: AppLanguage) {
+  if (!el || blocked(el)) return;
 
-function processElement(el: Element, language: AppLanguage) {
-  if (blocked(el)) return;
-  let states = attrState.get(el);
+  const key = el as object;
+  let states = attrState.get(key);
   if (!states) {
-    states = new Map();
-    attrState.set(el, states);
+    states = new Map<string, { original: string; last: string }>();
+    attrState.set(key, states);
   }
+
   for (const attr of ATTRS) {
-    if (!el.hasAttribute(attr)) continue;
-    const current = el.getAttribute(attr) || '';
+    if (!el.hasAttribute?.(attr)) continue;
+    const current = String(el.getAttribute(attr) || '');
     let state = states.get(attr);
     if (!state) {
       state = { original: current, last: current };
@@ -330,24 +349,34 @@ function processElement(el: Element, language: AppLanguage) {
     } else if (current !== state.last) {
       state.original = current;
     }
+
     const next = translateUiText(state.original, language);
     state.last = next;
     if (current !== next) el.setAttribute(attr, next);
   }
 }
 
-function walk(root: Node, language: AppLanguage) {
-  if (root.nodeType === Node.TEXT_NODE) {
-    processText(root as Text, language);
+function walk(root: any, language: AppLanguage) {
+  if (!root) return;
+
+  if (root.nodeType === 3) {
+    processText(root, language);
     return;
   }
-  if (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_FRAGMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE) return;
-  if (root.nodeType === Node.ELEMENT_NODE) processElement(root as Element, language);
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
-  let node: Node | null;
-  while ((node = walker.nextNode())) {
-    if (node.nodeType === Node.TEXT_NODE) processText(node as Text, language);
-    else if (node.nodeType === Node.ELEMENT_NODE) processElement(node as Element, language);
+
+  if (root.nodeType === 1) processElement(root, language);
+  if (![1, 9, 11].includes(Number(root.nodeType))) return;
+
+  const walker = document.createTreeWalker(
+    root,
+    NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+  );
+
+  let node: any = walker.nextNode();
+  while (node) {
+    if (node.nodeType === 3) processText(node, language);
+    else if (node.nodeType === 1) processElement(node, language);
+    node = walker.nextNode();
   }
 }
 
@@ -356,6 +385,8 @@ export default function LocalizationBridge() {
 
   useEffect(() => {
     const root = document.body;
+    if (!root) return;
+
     document.title = language === 'en'
       ? 'LAMA Travelers | Experiences in San Pedro de Atacama'
       : language === 'pt-BR'
@@ -370,9 +401,15 @@ export default function LocalizationBridge() {
       applying = true;
       try {
         for (const record of records) {
-          if (record.type === 'characterData') processText(record.target as Text, language);
-          else if (record.type === 'attributes') processElement(record.target as Element, language);
-          else for (const node of Array.from(record.addedNodes)) walk(node, language);
+          if (record.type === 'characterData') {
+            processText(record.target, language);
+          } else if (record.type === 'attributes') {
+            processElement(record.target, language);
+          } else {
+            for (const node of Array.from(record.addedNodes)) {
+              walk(node, language);
+            }
+          }
         }
       } finally {
         applying = false;

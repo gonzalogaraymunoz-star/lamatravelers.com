@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 import CatalogClient from '@/components/CatalogClient';
-import { getPublicProducts, isTourismProduct } from '@/lib/catalog';
+import { getPublicProducts, isPrimaryTourismProduct } from '@/lib/catalog';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Experiencias en Atacama' };
 
 export default async function Page() {
-  const products = (await getPublicProducts()).filter(isTourismProduct);
+  const products = (await getPublicProducts()).filter(isPrimaryTourismProduct);
   return <>
     <section className="page-hero simple">
       <div className="eyebrow">Experiencias LAMA · San Pedro de Atacama</div>

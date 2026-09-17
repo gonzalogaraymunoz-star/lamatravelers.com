@@ -1,2 +1,41 @@
-export const metadata={title:'Cambios, cancelaciones y reembolsos'};
-export default function Page(){return <section className="policy-page"><div className="eyebrow">Versión 1.0 · Julio 2026</div><h1>Cambios, cancelaciones y reembolsos</h1><p className="lead">Estas condiciones aplican a excursiones, programas de varios días y traslados. Las condiciones especiales informadas en la cotización, confirmación o voucher prevalecen sobre la política general.</p><div className="policy-grid"><article><span>6 días o más</span><strong>100% de reembolso</strong><p>Descontando entradas, permisos, reservas o servicios de terceros ya emitidos y no reembolsables.</p></article><article><span>Entre 5 días y +24 h</span><strong>70% de reembolso</strong><p>Los cambios están sujetos a disponibilidad y pueden tener penalidad de hasta 30%.</p></article><article><span>Menos de 24 h</span><strong>Sin reembolso</strong><p>Un cambio se considera cancelación y nueva reserva.</p></article><article><span>Enfermedad</span><strong>80% en tours regulares</strong><p>Con certificado médico válido, salvo productos excluidos o no reembolsables.</p></article></div><div className="policy-content"><h2>Inasistencia y retrasos</h2><p>Si el pasajero no se presenta en el horario y punto informados, el servicio se considera utilizado. Una nueva recogida, salida, excursión o traslado se cobra como un servicio nuevo.</p><h2>Clima, cierres y contingencias</h2><p>Primero intentamos reprogramar. Si no es posible, proponemos una experiencia equivalente. Si el pasajero rechaza la alternativa, puede aplicar un reembolso de hasta 50% según costos ya comprometidos. Una vez iniciada la operación, normalmente no hay reembolso salvo autorización proporcional del proveedor.</p><h2>Entradas y terceros</h2><p>Entradas, permisos, tickets, reservas y otros costos de terceros ya emitidos no son reembolsables. Las condiciones particulares de una actividad operada por terceros prevalecen cuando fueron informadas antes de confirmar.</p><h2>Condiciones especiales</h2><p>Alta montaña y Uyuni: con más de 24 horas corresponde 100% de reembolso; con menos de 24 horas, no hay reembolso y no aplica excepción médica. Globo aerostático y experiencias ancestrales, una vez confirmadas y pagadas, no admiten devolución. En transfers, los cambios deben solicitarse con al menos 5 horas de anticipación.</p><h2>Devoluciones</h2><p>Las devoluciones aprobadas se procesan dentro de un máximo de 10 días, descontando costos no reembolsables, comisiones externas y diferencias de cambio cuando corresponda, preferentemente por el mismo medio de pago.</p></div></section>}
+export const metadata={title:'Políticas y condiciones'};
+
+export default function Page(){
+  return <section className="policy-page">
+    <div className="eyebrow">Información para pasajeros</div>
+    <h1>Políticas y condiciones</h1>
+    <p className="lead">Aquí encontrarás las condiciones generales de reserva, cambios y cancelaciones de nuestros programas y servicios.</p>
+
+    <div className="policy-grid">
+      <article>
+        <span>6 días o más</span>
+        <strong>Sin penalidad</strong>
+        <p>Puedes cancelar o modificar tu reserva hasta 6 días antes del primer servicio sin penalidad.</p>
+      </article>
+      <article>
+        <span>Entre 5 y 1 día</span>
+        <strong>20% de penalidad</strong>
+        <p>Las cancelaciones o modificaciones realizadas entre 5 y 1 día antes del primer servicio tienen un 20% de penalidad por costos administrativos.</p>
+      </article>
+      <article>
+        <span>Menos de 24 horas</span>
+        <strong>Primer día sin reembolso</strong>
+        <p>Los servicios correspondientes al primer día se cobran en su totalidad. Sobre el resto del programa se aplica una penalidad del 20%.</p>
+      </article>
+    </div>
+
+    <div className="policy-content">
+      <h2>Reservas y pagos</h2>
+      <p>La reserva debe ser confirmada con al menos 5 días de anticipación mediante el pago del 100% del valor total del programa.</p>
+
+      <h2>Cancelaciones y modificaciones</h2>
+      <p>Los plazos se calculan tomando como referencia el inicio del primer servicio reservado. Cualquier modificación está sujeta a disponibilidad.</p>
+
+      <h2>Condiciones particulares</h2>
+      <p>Algunos servicios, entradas, permisos, traslados o experiencias operadas por terceros pueden tener condiciones específicas. Cuando corresponda, estas serán informadas al pasajero en su cotización, confirmación o voucher.</p>
+
+      <h2>¿Necesitas ayuda?</h2>
+      <p>Si necesitas modificar o cancelar una reserva, contáctanos indicando el nombre del pasajero y los datos de la reserva para poder ayudarte.</p>
+    </div>
+  </section>
+}

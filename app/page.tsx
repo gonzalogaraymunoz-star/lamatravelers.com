@@ -3,7 +3,6 @@ import ExperienceCard from '@/components/ExperienceCard';
 import EditorialSheet from '@/components/EditorialSheet';
 import Planner from '@/components/Planner';
 import { getEditorialImages, getPublicProducts, isPrimaryTourismProduct } from '@/lib/catalog';
-import { images } from '@/lib/site';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +15,7 @@ const preferredSlugs = [
   'ruta_los_salares',
 ];
 
-const heroVideoUrl = 'https://www.canva.com/design/DAHVbPS5kgE/s-mw3_JjZGTDt3CZGzAAUg/view?embed&autoplay=1&loop=1';
+const heroImageUrl = 'https://drive.google.com/thumbnail?id=1hVkXGwUoJwWaCtuPVHhNMIz0XEH2btN8&sz=w2400';
 
 export default async function Home() {
   const [allProducts, editorial] = await Promise.all([getPublicProducts(), getEditorialImages('editorial/experiencial/')]);
@@ -27,25 +26,11 @@ export default async function Home() {
 
   return <>
     <section className="hero">
-      <img src={images.hero} alt="Valle de la Luna, San Pedro de Atacama" className="hero-image" />
-      <iframe
-        src={heroVideoUrl}
-        title="Atacama · LAMA Travelers"
-        aria-hidden="true"
-        tabIndex={-1}
-        allow="autoplay; fullscreen"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          width: '177.78svh',
-          height: '100svh',
-          minWidth: '100%',
-          minHeight: '56.25vw',
-          transform: 'translate(-50%, -50%)',
-          border: 0,
-          pointerEvents: 'none',
-        }}
+      <img
+        src={heroImageUrl}
+        alt="Paisaje altiplánico de Atacama · LAMA Travelers"
+        className="hero-image"
+        referrerPolicy="no-referrer"
       />
       <div className="hero-shade" />
       <div className="hero-content">

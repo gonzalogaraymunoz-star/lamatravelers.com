@@ -137,8 +137,21 @@ function attachImages(
 
 const complementaryCategories = new Set(['Transporte', 'SPA / Terapias', 'Salud', 'Procedimientos']);
 
+// These are commercial variants of the same astronomical experience. They remain
+// available in the data layer for sales/planning, but the public catalog presents
+// a single canonical Tour Astronómico card to avoid visual duplication.
+const hiddenPublicVariantSlugs = new Set([
+  'astronomico_a_desierto_abierto',
+  'astronomico_en_hotel',
+  'astronomico_privado',
+]);
+
 export function isTourismProduct(product: Pick<PublicProduct, 'category'>) {
   return !complementaryCategories.has(product.category);
+}
+
+export function isPrimaryTourismProduct(product: Pick<PublicProduct, 'category' | 'product_slug'>) {
+  return isTourismProduct(product) && !hiddenPublicVariantSlugs.has(product.product_slug);
 }
 
 export function publicGroup(product: Pick<PublicProduct, 'category'>) {

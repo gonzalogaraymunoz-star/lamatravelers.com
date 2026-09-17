@@ -38,7 +38,7 @@ export default function CatalogClient({ products }: { products: PublicProduct[] 
         </div>
       </section>
       <section className="section catalog">
-        <div className="catalog-count">{list.length} experiencias y servicios</div>
+        <div className="catalog-count">{list.length} experiencias turísticas</div>
         <div className="experience-grid">{list.map((product) => <ExperienceCard key={product.product_slug} product={product} />)}</div>
       </section>
     </>

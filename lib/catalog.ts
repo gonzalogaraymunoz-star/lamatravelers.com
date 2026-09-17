@@ -135,6 +135,12 @@ function attachImages(
   return { ...product, hero, cover, gallery };
 }
 
+const complementaryCategories = new Set(['Transporte', 'SPA / Terapias', 'Salud', 'Procedimientos']);
+
+export function isTourismProduct(product: Pick<PublicProduct, 'category'>) {
+  return !complementaryCategories.has(product.category);
+}
+
 export function publicGroup(product: Pick<PublicProduct, 'category'>) {
   switch (product.category) {
     case 'Nocturno': return 'Cielo';

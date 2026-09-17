@@ -2,7 +2,7 @@ import Link from 'next/link';
 import ExperienceCard from '@/components/ExperienceCard';
 import EditorialSheet from '@/components/EditorialSheet';
 import Planner from '@/components/Planner';
-import { getEditorialImages, getPublicProducts, isTourismProduct } from '@/lib/catalog';
+import { getEditorialImages, getPublicProducts, isPrimaryTourismProduct } from '@/lib/catalog';
 import { images } from '@/lib/site';
 
 export const dynamic = 'force-dynamic';
@@ -18,7 +18,7 @@ const preferredSlugs = [
 
 export default async function Home() {
   const [allProducts, editorial] = await Promise.all([getPublicProducts(), getEditorialImages('editorial/experiencial/')]);
-  const products = allProducts.filter(isTourismProduct);
+  const products = allProducts.filter(isPrimaryTourismProduct);
   const selected = preferredSlugs.map((slug) => products.find((product) => product.product_slug === slug)).filter(Boolean).slice(0, 6);
   const immersion = editorial.find((image) => image.storage_path.endsWith('01_atacama_inmersivo.jpg'));
   const matrix = editorial.find((image) => image.storage_path.endsWith('02_matriz_de_sintonia.jpg'));

@@ -3,10 +3,18 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { site } from '@/lib/site';
+import { useLanguage, type AppLanguage } from './LanguageProvider';
 import styles from './Header.module.css';
+
+const languages: { value: AppLanguage; label: string; title: string }[] = [
+  { value: 'pt-BR', label: 'POR', title: 'Português (Brasil)' },
+  { value: 'en', label: 'EN', title: 'English' },
+  { value: 'es', label: 'ESP', title: 'Español' },
+];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { language, setLanguage } = useLanguage();
 
   useEffect(() => {
     if (!open) return;
@@ -35,19 +43,37 @@ export default function Header() {
             <img src="/lama-logo.svg" alt="LAMA Travelers" />
           </Link>
 
-          <button
-            className={styles.menu}
-            onClick={() => setOpen((value) => !value)}
-            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-            aria-expanded={open}
-            aria-controls="site-menu-panel"
-          >
-            <span>{open ? 'Cerrar' : 'Menú'}</span>
-            <span className={`${styles.menuIcon} ${open ? styles.menuIconOpen : ''}`} aria-hidden="true">
-              <i />
-              <i />
-            </span>
-          </button>
+          <div className={styles.actions}>
+            <div className={styles.languages} aria-label="Language / Idioma" data-no-translate="true">
+              {languages.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  className={language === option.value ? styles.langActive : styles.langButton}
+                  title={option.title}
+                  aria-label={option.title}
+                  aria-pressed={language === option.value}
+                  onClick={() => setLanguage(option.value)}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+
+            <button
+              className={styles.menu}
+              onClick={() => setOpen((value) => !value)}
+              aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={open}
+              aria-controls="site-menu-panel"
+            >
+              <span>{open ? 'Cerrar' : 'Menú'}</span>
+              <span className={`${styles.menuIcon} ${open ? styles.menuIconOpen : ''}`} aria-hidden="true">
+                <i />
+                <i />
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -64,6 +90,21 @@ export default function Header() {
         aria-hidden={!open}
       >
         <div className={styles.panelInner}>
+          <div className={styles.panelLanguages} data-no-translate="true" aria-label="Language / Idioma">
+            {languages.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                className={language === option.value ? styles.panelLangActive : ''}
+                title={option.title}
+                aria-pressed={language === option.value}
+                onClick={() => setLanguage(option.value)}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+
           <div className={styles.group}>
             <span className={styles.label}>Explora</span>
             <Link href="/experiencias" onClick={close}>Experiencias</Link>

@@ -16,6 +16,8 @@ const preferredSlugs = [
   'ruta_los_salares',
 ];
 
+const heroVideoUrl = 'https://www.canva.com/design/DAHVbPS5kgE/s-mw3_JjZGTDt3CZGzAAUg/view?embed&autoplay=1&loop=1';
+
 export default async function Home() {
   const [allProducts, editorial] = await Promise.all([getPublicProducts(), getEditorialImages('editorial/experiencial/')]);
   const products = allProducts.filter(isPrimaryTourismProduct);
@@ -26,6 +28,25 @@ export default async function Home() {
   return <>
     <section className="hero">
       <img src={images.hero} alt="Valle de la Luna, San Pedro de Atacama" className="hero-image" />
+      <iframe
+        src={heroVideoUrl}
+        title="Atacama · LAMA Travelers"
+        aria-hidden="true"
+        tabIndex={-1}
+        allow="autoplay; fullscreen"
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: '177.78svh',
+          height: '100svh',
+          minWidth: '100%',
+          minHeight: '56.25vw',
+          transform: 'translate(-50%, -50%)',
+          border: 0,
+          pointerEvents: 'none',
+        }}
+      />
       <div className="hero-shade" />
       <div className="hero-content">
         <div className="eyebrow light">San Pedro de Atacama · Chile</div>

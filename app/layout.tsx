@@ -4,6 +4,8 @@ import './brand.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import { LanguageProvider } from '@/components/LanguageProvider';
+import LocalizationBridge from '@/components/LocalizationBridge';
 
 const fullLogoIcon = 'https://drive.google.com/thumbnail?id=1dYFHFgum_0EMYSCCBYuhrRQjTgFRHaMb&sz=w512';
 
@@ -16,5 +18,17 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({children}:{children:React.ReactNode}){
-  return <html lang="es"><body><Header/><main>{children}</main><Footer/><WhatsAppButton/></body></html>
+  return (
+    <html lang="es" suppressHydrationWarning>
+      <body>
+        <LanguageProvider>
+          <LocalizationBridge/>
+          <Header/>
+          <main>{children}</main>
+          <Footer/>
+          <WhatsAppButton/>
+        </LanguageProvider>
+      </body>
+    </html>
+  );
 }

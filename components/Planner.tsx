@@ -135,7 +135,7 @@ export default function Planner(){
     <div className={styles.field}>
       <label htmlFor="planner-interest">¿Qué te mueve?</label>
       <select id="planner-interest" value={interest} onChange={e=>setInterest(e.target.value)}>
-        <option>Paisajes y clásicos</option><option>Aventura y trekking</option><option>Alta montaña</option><option>Cielo y astronomía</option><option>Cultura local</option><option>Wellness y descanso</option><option>Un poco de todo</option>
+        <option>Paisajes y clásicos</option><option>Aventura y trekking</option><option>Alta montaña</option><option>Cielo y astronomía</option><option>Cultura local</option><option>Wellness y descanso</option><option>Traslados y logística</option><option>Un poco de todo</option>
       </select>
     </div>
 

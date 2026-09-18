@@ -5,3 +5,8 @@
 /* Supabase editorial media */
 .editorial-sheet{margin:0;background:#111;display:flex;justify-content:center;overflow:hidden}.editorial-sheet img{display:block;width:100%;height:auto;object-fit:contain}.editorial-sheet.sheet-wide img{max-width:1800px}.editorial-sheet.sheet-contained{padding:70px max(5vw,24px);background:#e9e4da}.editorial-sheet.sheet-contained img{max-width:1440px;box-shadow:0 18px 60px rgba(0,0,0,.08)}.sheet-pair{display:grid;grid-template-columns:1fr 1fr;background:#111;gap:1px}.sheet-pair .editorial-sheet img{width:100%;height:auto;object-fit:contain}.product-gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px}.product-gallery figure{margin:0;background:#eee}.product-gallery img{display:block;width:100%;height:auto;object-fit:contain}.body-copy{font-size:17px;line-height:1.75;color:#55524b}.data-note{padding:28px;border:1px solid var(--line);color:var(--muted)}
 @media(max-width:800px){.editorial-sheet.sheet-contained{padding:28px 0}.sheet-pair{grid-template-columns:1fr}.product-gallery{grid-template-columns:1fr}}
+
+/* Video hero: the poster remains visible while the optimized video starts. */
+.hero{background:#8b4d31 url('/media/lama-hero-poster.jpg') center/cover no-repeat;overflow:hidden}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center}
+@media(prefers-reduced-motion:reduce){.hero-video{display:none}}

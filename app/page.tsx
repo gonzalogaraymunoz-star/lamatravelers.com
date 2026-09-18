@@ -15,8 +15,6 @@ const preferredSlugs = [
   'ruta_los_salares',
 ];
 
-const heroImageUrl = 'https://drive.google.com/thumbnail?id=1hVkXGwUoJwWaCtuPVHhNMIz0XEH2btN8&sz=w2400';
-
 export default async function Home() {
   const [allProducts, editorial] = await Promise.all([getPublicProducts(), getEditorialImages('editorial/experiencial/')]);
   const products = allProducts.filter(isPrimaryTourismProduct);
@@ -26,12 +24,19 @@ export default async function Home() {
 
   return <>
     <section className="hero">
-      <img
-        src={heroImageUrl}
-        alt="Paisaje altiplánico de Atacama · LAMA Travelers"
-        className="hero-image"
-        referrerPolicy="no-referrer"
-      />
+      <video
+        className="hero-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/media/lama-hero-poster.jpg"
+        aria-hidden="true"
+        disablePictureInPicture
+      >
+        <source src="/media/lama-hero.mp4" type="video/mp4" />
+      </video>
       <div className="hero-shade" />
       <div className="hero-content">
         <div className="eyebrow light">San Pedro de Atacama · Chile</div>

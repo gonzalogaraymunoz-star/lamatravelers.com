@@ -2,17 +2,17 @@ import Link from 'next/link';
 import type { PublicProduct } from '@/lib/catalog';
 import { fallbackImage, publicGroup, publicProductName } from '@/lib/catalog';
 
-export default function ExperienceCard({ product, basePath = '/experiencias' }: { product: PublicProduct; basePath?: string }) {
+export default function ExperienceCard({ product }: { product: PublicProduct }) {
   const name = publicProductName(product);
   return (
-    <Link href={`${basePath}/${product.product_slug}`} className="experience-card">
+    <Link href={`/experiencias/${product.product_slug}`} className="experience-card">
       <div className="card-image-wrap">
         <img src={product.hero?.url || fallbackImage} alt={name} className="card-image" loading="lazy" />
       </div>
       <div className="card-body">
         <div className="eyebrow">{publicGroup(product)}</div>
         <h3>{name}</h3>
-        <p>{product.detail || product.description || 'Una experiencia en San Pedro de Atacama.'}</p>
+        <p>{product.detail || product.description || 'Una experiencia coordinada por LAMA en San Pedro de Atacama.'}</p>
         <span className="text-link">Conocer experiencia <span>↗</span></span>
       </div>
     </Link>

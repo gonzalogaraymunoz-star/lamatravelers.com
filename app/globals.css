@@ -10,20 +10,3 @@
 .hero{background:#8b4d31 url('/media/lama-hero-poster.jpg') center/cover no-repeat;overflow:hidden}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center}
 @media(prefers-reduced-motion:reduce){.hero-video{display:none}}
-
-
-/* Embedded neutral catalog */
-body:has(.embed-catalog-page) .site-header,
-body:has(.embed-catalog-page) .footer,
-body:has(.embed-catalog-page) .whatsapp-float{display:none!important}
-body:has(.embed-catalog-page){background:var(--paper)}
-.embed-catalog-page{min-height:100vh;background:var(--paper)}
-.embed-catalog-page .page-hero{padding-top:96px;padding-bottom:72px}
-.embed-catalog-page .catalog-tools{padding-top:0}
-.embed-catalog-page .catalog{padding-bottom:90px}
-.embed-catalog-page .product-layout{padding-top:80px}
-.embed-catalog-page .next-section{padding-bottom:80px}
-@media(max-width:650px){
-  .embed-catalog-page .page-hero{padding-top:72px;padding-bottom:54px}
-  .embed-catalog-page .product-layout{padding-top:55px}
-}

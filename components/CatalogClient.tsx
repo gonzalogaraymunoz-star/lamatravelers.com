@@ -6,7 +6,7 @@ import ExperienceCard from '@/components/ExperienceCard';
 import type { PublicProduct } from '@/lib/catalog';
 import { publicGroup, publicProductName } from '@/lib/catalog';
 
-export default function CatalogClient({ products }: { products: PublicProduct[] }) {
+export default function CatalogClient({ products, basePath = '/experiencias' }: { products: PublicProduct[]; basePath?: string }) {
   const params = useSearchParams();
   const initial = params.get('categoria') || 'Todos';
   const [category, setCategory] = useState(initial);
@@ -39,7 +39,7 @@ export default function CatalogClient({ products }: { products: PublicProduct[] 
       </section>
       <section className="section catalog">
         <div className="catalog-count">{list.length} experiencias turísticas</div>
-        <div className="experience-grid">{list.map((product) => <ExperienceCard key={product.product_slug} product={product} />)}</div>
+        <div className="experience-grid">{list.map((product) => <ExperienceCard key={product.product_slug} product={product} basePath={basePath} />)}</div>
       </section>
     </>
   );

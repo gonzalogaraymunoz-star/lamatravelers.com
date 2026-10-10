@@ -1,41 +1,43 @@
-import type { Metadata } from 'next';
-export const metadata: Metadata = { title: 'Traslados Órbita · Planeta Perreo', description: 'Reserva tu traslado de ida y vuelta a Planeta Perreo en San Pedro de Atacama. Prioridad con reserva previa.' };
-const dm = 'https://ig.me/m/lamatravelers';
-export default function TrasladosOrbitaOct() {
-return <section className="orbita-page">
+'use client';
+import { useState } from 'react';
+const dm='https://ig.me/m/lamatravelers';
+export default function TrasladosOrbitaOct(){const [service,setService]=useState<'privado'|'compartido'>('compartido');const [pax,setPax]=useState(1);const [trip,setTrip]=useState('ida-vuelta');const [time,setTime]=useState('');const max=service==='privado'?4:10;const total=service==='privado'?20000:5000*pax;const message='ÓRBITA — Reserva '+service+' | '+pax+' pasajero(s) | '+trip+' | Horario: '+(time||'por coordinar')+' | Total referencial: $'+total.toLocaleString('es-CL')+'.';return <div className="orbita">
 <style>{`
-body:has(.orbita-page) header,body:has(.orbita-page) footer,body:has(.orbita-page) .whatsapp-button,body:has(.orbita-page) a[href*="wa.me"],body:has(.orbita-page) a[href*="api.whatsapp.com"]{display:none!important}
-body:has(.orbita-page) main{padding:0!important;max-width:none!important}
-.orbita-page{min-height:100vh;background:#07090f;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
-.orbita-hero{min-height:88vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at 50% 75%,#9d310c55,transparent 55%),linear-gradient(180deg,#05080e 0%,#11121a 58%,#391509 100%);padding:60px 20px}
-.orbita-hero:before{content:'';position:absolute;inset:0;background-image:url('/orbita-bg.webp');background-size:cover;background-position:center;opacity:.85}
-.orbita-hero:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#07090d22 0%,#07090d00 55%,#07090d 100%);pointer-events:none}
-.orbita-hero-content{position:relative;z-index:1;width:min(900px,100%);text-shadow:0 3px 22px #000}
-.orbita-eyebrow{font-size:clamp(13px,2vw,18px);letter-spacing:.22em;color:#ffb487;font-weight:700}
-.orbita-hero h1{font-size:clamp(64px,11vw,150px);font-weight:900;letter-spacing:-.06em;line-height:1;margin:28px 0 0;color:#ff5a16}
-.orbita-hero h2{font-size:clamp(26px,5vw,60px);font-weight:900;line-height:1.1;margin:10px 0 25px}
-.orbita-hero p{font-size:clamp(16px,2vw,21px);margin:0 auto 25px;max-width:680px}
-.orbita-cta{display:inline-block;border:0;border-radius:60px;background:#ff5a16;color:#fff!important;font-weight:900;text-decoration:none;padding:19px 35px;font-size:clamp(18px,2.5vw,25px);box-shadow:0 9px 30px #0009}
-.orbita-prices{max-width:920px;margin:-30px auto 0;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 20px}
-.orbita-price{background:#160e0b;border:1px solid #b44722;border-radius:18px;text-align:center;padding:28px 15px}
-.orbita-price small{display:block;letter-spacing:.15em;font-weight:700;color:#ffad83}
-.orbita-price strong{display:block;font-size:clamp(42px,6vw,70px);margin:8px 0;color:#fff}
-.orbita-price span{color:#f0d6c9}
-.orbita-bottom{text-align:center;padding:30px 20px 75px;color:#d9c4b8}
-.orbita-bottom p{margin:0 auto 22px;max-width:650px;line-height:1.7}
-@media(max-width:650px){.orbita-prices{grid-template-columns:1fr}.orbita-hero{min-height:78vh;padding:45px 18px}.orbita-hero:before{background-position:50% center}.orbita-hero h1{font-size:clamp(52px,14vw,85px)}}
+body:has(.orbita) header,body:has(.orbita) footer,body:has(.orbita) a[href*="wa.me"],body:has(.orbita) a[href*="api.whatsapp.com"]{display:none!important}body:has(.orbita) main{max-width:none!important;padding:0!important}
+.orbita{background:#06090e;color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+.orbita-grid{max-width:1440px;margin:auto;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(350px,.8fr);gap:0}
+.orbita-art{min-height:100vh;background:#080a12 url('/orbita-bg.webp') center top/cover no-repeat;position:relative}
+.orbita-art:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 85%,#06090e)}
+.orbita-panel{padding:55px clamp(22px,4vw,65px);background:#090b10;align-self:start;position:sticky;top:0;min-height:100vh;box-sizing:border-box}
+.orbita-overline{color:#ff7134;letter-spacing:.22em;font-size:11px;font-weight:800}
+.orbita-panel h1{font-size:clamp(30px,3.5vw,54px);line-height:1.05;margin:20px 0 10px}
+.orbita-lead{color:#c7bfc0;font-size:14px;line-height:1.65}
+.orbita-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:30px 0}
+.orbita-choice{background:#11151b;color:#fff;border:1px solid #434044;border-radius:12px;padding:17px 10px;text-align:left;cursor:pointer}
+.orbita-choice[aria-pressed="true"]{border:2px solid #ff5a16;background:#27160f}
+.orbita-choice strong{display:block;font-size:23px;margin:10px 0;color:#ff6a2b}
+.orbita-choice span{font-size:12px;color:#c6bbba}
+.orbita-field{display:block;margin:18px 0;font-size:12px;letter-spacing:.05em;color:#dfd5d0;font-weight:700}
+.orbita-field select,.orbita-field input{display:block;width:100%;box-sizing:border-box;background:#15191e;border:1px solid #4b4442;border-radius:9px;color:#fff;padding:15px;margin-top:9px;font-size:16px}
+.orbita-total{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #4d3830;margin-top:24px;padding-top:23px}
+.orbita-total strong{font-size:32px}
+.orbita-cta{display:block;width:100%;box-sizing:border-box;background:#ff5a16;color:#fff!important;text-decoration:none;text-align:center;border-radius:12px;padding:20px 14px;font-weight:900;font-size:17px;margin-top:24px}
+.orbita-foot{color:#b9aaa4;font-size:12px;line-height:1.7;margin-top:15px}
+.orbita-mobile-hero{display:none}
+@media(max-width:850px){.orbita-grid{display:block}.orbita-art{min-height:0;aspect-ratio:16/11;background-size:cover;background-position:center 35%}.orbita-art:after{background:linear-gradient(180deg,transparent 65%,#090b10)}.orbita-panel{min-height:0;position:static;padding:30px 20px 60px}}
 `}</style>
-<div className="orbita-hero"><div className="orbita-hero-content">
-<div className="orbita-eyebrow">ÓRBITA · PRIMER ANIVERSARIO</div>
-<h2>PLANETA PERREO</h2><h1>TRASLADO</h1>
-<p style={{letterSpacing:'.25em',fontWeight:800}}>IDA Y VUELTA</p>
-<p>Prioridad con reserva previa · Cupos limitados</p>
-<a className="orbita-cta" href="https://ig.me/m/lamatravelers" target="_blank" rel="noopener noreferrer">ESCRÍBENOS AL DM ↗</a>
-</div></div>
-<div className="orbita-prices">
-<div className="orbita-price"><small>PRIVADO</small><strong>$20.000</strong><span>Precio fijo · Hasta 4 pasajeros</span></div>
-<div className="orbita-price"><small>COMPARTIDO</small><strong>$5.000</strong><span>Por persona · Hasta 10 cupos</span></div>
+<div className="orbita-grid">
+<div className="orbita-art" role="img" aria-label="Gráfica oficial Órbita Planeta Perreo: cielo estrellado, cordillera y traslado en Atacama"/>
+<div className="orbita-panel"><div className="orbita-overline">ÓRBITA · PLANETA PERREO · 10 OCTUBRE</div>
+<h1>Reserva tu traslado</h1><p className="orbita-lead">Ida y vuelta a la fiesta. Cupos limitados, prioridad con reserva previa.</p>
+<div className="orbita-choices">
+<button className="orbita-choice" aria-pressed={service==='privado'} onClick={()=>{setService('privado');setPax(Math.min(pax,4))}}><span>VEHÍCULO PRIVADO</span><strong>$20.000</strong><span>Precio fijo · máximo 4 personas</span></button>
+<button className="orbita-choice" aria-pressed={service==='compartido'} onClick={()=>setService('compartido')}><span>COMPARTIDO</span><strong>$5.000</strong><span>Por persona · hasta 10 cupos</span></button>
 </div>
-<div className="orbita-bottom"><p>Reserva tu traslado para Planeta Perreo en San Pedro de Atacama. Escríbenos «ÓRBITA» por Instagram e indica el número de pasajeros. Confirmación sujeta a disponibilidad y pago validado.</p><a className="orbita-cta" href="https://ig.me/m/lamatravelers" target="_blank" rel="noopener noreferrer">RESERVAR POR INSTAGRAM ↗</a></div>
-</section>;
-}
+<label className="orbita-field">PASAJEROS<select value={pax} onChange={e=>setPax(Number(e.target.value))}>{Array.from({length:max},(_,i)=><option key={i+1} value={i+1}>{i+1} {i===0?'persona':'personas'}</option>)}</select></label>
+<label className="orbita-field">TRAYECTO<select value={trip} onChange={e=>setTrip(e.target.value)}><option value="ida-vuelta">Ida y vuelta</option><option value="ida">Solo ida (consultar disponibilidad)</option><option value="vuelta">Solo regreso (consultar disponibilidad)</option></select></label>
+<label className="orbita-field">HORARIO PREFERIDO<input value={time} onChange={e=>setTime(e.target.value)} placeholder="Ej. 23:30 / regreso 04:00"/></label>
+<div className="orbita-total"><span>TOTAL REFERENCIAL</span><strong>$ {total.toLocaleString('es-CL')}</strong></div>
+<a className="orbita-cta" href={dm} target="_blank" rel="noopener noreferrer" title={message}>ESCRÍBENOS AL DM ↗</a>
+<p className="orbita-foot">Envía «ÓRBITA» y los datos seleccionados por mensaje directo. La selección no bloquea cupos ni realiza un cobro. Reserva confirmada únicamente después de validar disponibilidad y pago.</p>
+</div></div></div>}

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 const dm='https://ig.me/m/lamatravelers';
-export default function TrasladosOrbitaOct(){const [service,setService]=useState<'privado'|'compartido'>('compartido');const [pax,setPax]=useState(1);const [trip,setTrip]=useState('ida-vuelta');const [time,setTime]=useState('');const max=service==='privado'?4:10;const legs=trip==='ida-vuelta'?2:1;const total=(service==='privado'?20000:4000*pax)*legs;const message='ÓRBITA — Reserva '+service+' | '+pax+' pasajero(s) | '+trip+' | Horario: '+(time||'por coordinar')+' | Total referencial: $'+total.toLocaleString('es-CL')+'.';return <div className="orbita">
+export default function TrasladosOrbitaOct(){const [service,setService]=useState<'privado'|'compartido'>('compartido');const [pax,setPax]=useState(1);const [trip,setTrip]=useState('ida-vuelta');const [time,setTime]=useState('');const max=service==='privado'?4:10;const legs=trip==='ida-vuelta'?2:1;const total=(service==='privado'?5000*pax:4000*pax)*legs;const message='ÓRBITA — Reserva '+service+' | '+pax+' pasajero(s) | '+trip+' | Horario: '+(time||'por coordinar')+' | Total referencial: $'+total.toLocaleString('es-CL')+'.';return <div className="orbita">
 <style>{`
 body:has(.orbita) header,body:has(.orbita) footer,body:has(.orbita) a[href*="wa.me"],body:has(.orbita) a[href*="api.whatsapp.com"]{display:none!important}body:has(.orbita) main{max-width:none!important;padding:0!important}
 .orbita{background:#06090e;color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
@@ -31,7 +31,7 @@ body:has(.orbita) header,body:has(.orbita) footer,body:has(.orbita) a[href*="wa.
 <div className="orbita-panel"><div className="orbita-overline">ÓRBITA · PLANETA PERREO · 10 OCTUBRE</div>
 <h1>Reserva tu traslado</h1><p className="orbita-lead">Traslados por tramo. Puedes reservar ida, regreso o ambos. Cupos limitados y prioridad con reserva previa.</p>
 <div className="orbita-choices">
-<button className="orbita-choice" aria-pressed={service==='privado'} onClick={()=>{setService('privado');setPax(Math.min(pax,4))}}><span>VEHÍCULO PRIVADO</span><strong>$20.000</strong><span>Por tramo · precio fijo · máximo 4 personas</span></button>
+<button className="orbita-choice" aria-pressed={service==='privado'} onClick={()=>{setService('privado');setPax(Math.min(pax,4))}}><span>VEHÍCULO PRIVADO</span><strong>$5.000</strong><span>Por persona y tramo · hasta completar 4 cupos ($20.000 vehículo completo)</span></button>
 <button className="orbita-choice" aria-pressed={service==='compartido'} onClick={()=>setService('compartido')}><span>COMPARTIDO</span><strong>$4.000</strong><span>Por persona y tramo · hasta 10 cupos</span></button>
 </div>
 <label className="orbita-field">PASAJEROS<select value={pax} onChange={e=>setPax(Number(e.target.value))}>{Array.from({length:max},(_,i)=><option key={i+1} value={i+1}>{i+1} {i===0?'persona':'personas'}</option>)}</select></label>

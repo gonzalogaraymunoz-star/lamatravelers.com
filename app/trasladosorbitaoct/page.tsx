@@ -15,7 +15,7 @@ body:has(.orbita-simple) main{padding:0!important;max-width:none!important}
 .orbita-note{font-size:13px!important;color:#bfb2ac!important;margin-top:18px}
 @media(max-width:600px){.orbita-fares{grid-template-columns:1fr}.orbita-container{padding:0 15px 50px}}
 `}</style>
-<img className="orbita-poster" src="/orbita-bg.webp" alt="Gráfica oficial Órbita: Primer Aniversario, Planeta Perreo, traslado y cordillera de Atacama"/>
+<img className="orbita-poster" src="https://drive.google.com/thumbnail?id=1bl5K5Uv4BhxKx0vUKaELH74DsNGgsN4J&sz=w1600" alt="Gráfica oficial Órbita: Primer Aniversario, Planeta Perreo, traslado y cordillera de Atacama"/>
 <div className="orbita-container"><h1>RESERVA TU TRASLADO</h1><p>Ida o regreso · Valores por tramo</p>
 <div className="orbita-fares"><div className="orbita-fare">PRIVADO<strong>$5.000</strong><span>Por persona · Hasta 4 cupos<br/>Vehículo completo: $20.000</span></div><div className="orbita-fare">COMPARTIDO<strong>$4.000</strong><span>Por persona · Hasta 10 cupos</span></div></div>
 <a className="orbita-link" href="https://ig.me/m/lamatravelers" target="_blank" rel="noopener noreferrer">ESCRÍBENOS AL DM ↗</a>

@@ -1,0 +1,33 @@
+name: Restore Orbita artwork
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/restore-orbita-artwork.yml'
+permissions:
+  contents: write
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download campaign image and commit to public
+        env:
+          ART_URL: "https://media.canva.com/v2/image-resize/format:PNG/height:150/quality:100/uri:ifs%3A%2F%2FM%2F7a795525-8f19-4fba-983a-7d2fe982b426/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAL7pjXh-7JwZrb-zSFJI-oQ4aHhavvFyip41QXlgfoNu&exp=1791682553&osig=AAAAAAAAAAAAAAAAAAAAABovCODlGgB3juB4qpTqqPojOiwXUvkEyJLq00wjCspi&signer=media-rpc&token=AAIAAU0AJDdhNzk1NTI1LThmMTktNGZiYS05ODNhLTdkMmZlOTgyYjQyNgAAAAABoSiaJKgFGJO4suFUKXNSjrT8CESKPtoB8P1neONDGA4RBl4aZg&x-canva-quality=thumbnail"
+        run: |
+          set -euo pipefail
+          mkdir -p public
+          curl --fail --location --retry 3 "$ART_URL" -o public/orbita-bg.png
+          file public/orbita-bg.png
+          test "$(wc -c < public/orbita-bg.png)" -gt 1000
+          python3 - <<'PY'
+          from PIL import Image
+          im=Image.open('public/orbita-bg.png')
+          print('Downloaded size:', im.size)
+          im.save('public/orbita-bg.webp', 'WEBP', quality=92)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/orbita-bg.webp
+          git commit -m "fix: publish Orbita campaign artwork" || exit 0
+          git push

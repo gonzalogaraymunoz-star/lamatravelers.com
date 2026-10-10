@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 const dm='https://ig.me/m/lamatravelers';
-export default function TrasladosOrbitaOct(){const [service,setService]=useState<'privado'|'compartido'>('compartido');const [pax,setPax]=useState(1);const [trip,setTrip]=useState('ida-vuelta');const [time,setTime]=useState('');const max=service==='privado'?4:10;const total=service==='privado'?20000:5000*pax;const message='ÓRBITA — Reserva '+service+' | '+pax+' pasajero(s) | '+trip+' | Horario: '+(time||'por coordinar')+' | Total referencial: $'+total.toLocaleString('es-CL')+'.';return <div className="orbita">
+export default function TrasladosOrbitaOct(){const [service,setService]=useState<'privado'|'compartido'>('compartido');const [pax,setPax]=useState(1);const [trip,setTrip]=useState('ida-vuelta');const [time,setTime]=useState('');const max=service==='privado'?4:10;const legs=trip==='ida-vuelta'?2:1;const total=(service==='privado'?20000:4000*pax)*legs;const message='ÓRBITA — Reserva '+service+' | '+pax+' pasajero(s) | '+trip+' | Horario: '+(time||'por coordinar')+' | Total referencial: $'+total.toLocaleString('es-CL')+'.';return <div className="orbita">
 <style>{`
 body:has(.orbita) header,body:has(.orbita) footer,body:has(.orbita) a[href*="wa.me"],body:has(.orbita) a[href*="api.whatsapp.com"]{display:none!important}body:has(.orbita) main{max-width:none!important;padding:0!important}
 .orbita{background:#06090e;color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
@@ -29,15 +29,15 @@ body:has(.orbita) header,body:has(.orbita) footer,body:has(.orbita) a[href*="wa.
 <div className="orbita-grid">
 <div className="orbita-art" role="img" aria-label="Gráfica oficial Órbita Planeta Perreo: cielo estrellado, cordillera y traslado en Atacama"/>
 <div className="orbita-panel"><div className="orbita-overline">ÓRBITA · PLANETA PERREO · 10 OCTUBRE</div>
-<h1>Reserva tu traslado</h1><p className="orbita-lead">Ida y vuelta a la fiesta. Cupos limitados, prioridad con reserva previa.</p>
+<h1>Reserva tu traslado</h1><p className="orbita-lead">Traslados por tramo. Puedes reservar ida, regreso o ambos. Cupos limitados y prioridad con reserva previa.</p>
 <div className="orbita-choices">
-<button className="orbita-choice" aria-pressed={service==='privado'} onClick={()=>{setService('privado');setPax(Math.min(pax,4))}}><span>VEHÍCULO PRIVADO</span><strong>$20.000</strong><span>Precio fijo · máximo 4 personas</span></button>
-<button className="orbita-choice" aria-pressed={service==='compartido'} onClick={()=>setService('compartido')}><span>COMPARTIDO</span><strong>$5.000</strong><span>Por persona · hasta 10 cupos</span></button>
+<button className="orbita-choice" aria-pressed={service==='privado'} onClick={()=>{setService('privado');setPax(Math.min(pax,4))}}><span>VEHÍCULO PRIVADO</span><strong>$20.000</strong><span>Por tramo · precio fijo · máximo 4 personas</span></button>
+<button className="orbita-choice" aria-pressed={service==='compartido'} onClick={()=>setService('compartido')}><span>COMPARTIDO</span><strong>$4.000</strong><span>Por persona y tramo · hasta 10 cupos</span></button>
 </div>
 <label className="orbita-field">PASAJEROS<select value={pax} onChange={e=>setPax(Number(e.target.value))}>{Array.from({length:max},(_,i)=><option key={i+1} value={i+1}>{i+1} {i===0?'persona':'personas'}</option>)}</select></label>
 <label className="orbita-field">TRAYECTO<select value={trip} onChange={e=>setTrip(e.target.value)}><option value="ida-vuelta">Ida y vuelta</option><option value="ida">Solo ida (consultar disponibilidad)</option><option value="vuelta">Solo regreso (consultar disponibilidad)</option></select></label>
 <label className="orbita-field">HORARIO PREFERIDO<input value={time} onChange={e=>setTime(e.target.value)} placeholder="Ej. 23:30 / regreso 04:00"/></label>
-<div className="orbita-total"><span>TOTAL REFERENCIAL</span><strong>$ {total.toLocaleString('es-CL')}</strong></div>
+<div className="orbita-total"><span>TOTAL SEGÚN TRAYECTO</span><strong>$ {total.toLocaleString('es-CL')}</strong></div>
 <a className="orbita-cta" href={dm} target="_blank" rel="noopener noreferrer" title={message}>ESCRÍBENOS AL DM ↗</a>
 <p className="orbita-foot">Envía «ÓRBITA» y los datos seleccionados por mensaje directo. La selección no bloquea cupos ni realiza un cobro. Reserva confirmada únicamente después de validar disponibilidad y pago.</p>
 </div></div></div>}

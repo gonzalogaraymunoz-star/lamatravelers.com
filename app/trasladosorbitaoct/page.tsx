@@ -1,10 +1,10 @@
 export default function TrasladosOrbitaOct(){return <div className="orbita-simple">
 <style>{`
-body:has(.orbita-simple) header,body:has(.orbita-simple) footer,body:has(.orbita-simple) a[href*="wa.me"],body:has(.orbita-simple) a[href*="api.whatsapp.com"]{display:none!important}
+body:has(.orbita-simple) header,body:has(.orbita-simple) nav,body:has(.orbita-simple) footer,body:has(.orbita-simple) a[href*="wa.me"],body:has(.orbita-simple) a[href*="api.whatsapp.com"]{display:none!important}
 body:has(.orbita-simple) main{padding:0!important;max-width:none!important}
 .orbita-simple{background:#08090e;color:white;min-height:100vh;font-family:Arial,Helvetica,sans-serif}
-.orbita-poster{width:100%;max-width:960px;margin:0 auto;display:block;object-fit:contain}
-.orbita-container{max-width:960px;margin:auto;text-align:center;padding:0 20px 65px}
+.orbita-poster{width:100%;max-width:1448px;margin:0 auto;display:block;object-fit:contain}
+.orbita-container{max-width:960px;margin:auto;text-align:center;padding:15px 20px 65px}
 .orbita-container h1{font-size:clamp(24px,4vw,42px);margin:20px 0 10px;font-weight:900}
 .orbita-container p{color:#dfd5ce;font-size:16px}
 .orbita-fares{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px auto}
@@ -15,7 +15,7 @@ body:has(.orbita-simple) main{padding:0!important;max-width:none!important}
 .orbita-note{font-size:13px!important;color:#bfb2ac!important;margin-top:18px}
 @media(max-width:600px){.orbita-fares{grid-template-columns:1fr}.orbita-container{padding:0 15px 50px}}
 `}</style>
-<img className="orbita-poster" src="/orbita-bg.webp" alt="Órbita Planeta Perreo — traslado en San Pedro de Atacama"/>
+<img className="orbita-poster" src="/orbita-bg.webp" alt="Gráfica oficial Órbita: Primer Aniversario, Planeta Perreo, traslado y cordillera de Atacama"/>
 <div className="orbita-container"><h1>RESERVA TU TRASLADO</h1><p>Ida o regreso · Valores por tramo</p>
 <div className="orbita-fares"><div className="orbita-fare">PRIVADO<strong>$5.000</strong><span>Por persona · Hasta 4 cupos<br/>Vehículo completo: $20.000</span></div><div className="orbita-fare">COMPARTIDO<strong>$4.000</strong><span>Por persona · Hasta 10 cupos</span></div></div>
 <a className="orbita-link" href="https://ig.me/m/lamatravelers" target="_blank" rel="noopener noreferrer">ESCRÍBENOS AL DM ↗</a>

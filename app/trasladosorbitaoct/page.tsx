@@ -2,22 +2,40 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = { title: 'Traslados Órbita · Planeta Perreo', description: 'Reserva tu traslado de ida y vuelta a Planeta Perreo en San Pedro de Atacama. Prioridad con reserva previa.' };
 const dm = 'https://ig.me/m/lamatravelers';
 export default function TrasladosOrbitaOct() {
-return <div style={{background:'#08090d',color:'#fff',minHeight:'100vh',fontFamily:'Arial,Helvetica,sans-serif'}}>
-<style>{` .orbita-wrap{max-width:1050px;margin:auto;padding:75px 22px 100px;text-align:center}.orbita-kicker{font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:#ffb184}.orbita-title{font-size:clamp(46px,10vw,116px);line-height:.94;letter-spacing:-.055em;margin:22px 0;color:#ff5b1a;font-weight:900}.orbita-sub{font-size:clamp(18px,3vw,32px);letter-spacing:.2em}.orbita-desc{max-width:620px;margin:24px auto 40px;line-height:1.7;color:#d5d0cc}.orbita-prices{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:30px auto;max-width:760px}.orbita-prices>div{background:#22150e;border:1px solid #ff5b1a;border-radius:18px;padding:26px 16px}.orbita-prices small,.orbita-prices span{display:block;color:#e6c8b8}.orbita-prices strong{display:block;font-size:clamp(36px,5vw,58px);color:#ff6b24;margin:12px 0}.orbita-prices span{font-size:13px}.orbita-features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:36px 0}.orbita-feature{border:1px solid #553a2d;border-radius:16px;padding:24px 12px;background:#171313}.orbita-feature strong{display:block;font-size:16px}.orbita-feature span{display:block;font-size:13px;color:#c9b9b1;margin-top:9px}.orbita-button{display:inline-block;padding:22px 35px;border-radius:50px;background:#ff5b1a;color:#111;text-decoration:none;font-size:19px;font-weight:900;box-shadow:0 0 45px #ff5b1a44}.orbita-note{font-size:13px;color:#b6aaa4;margin-top:22px}.orbita-planet{width:180px;height:180px;margin:0 auto 25px;border-radius:50%;background:radial-gradient(circle at 25% 25%,#ffb062,#f45319 48%,#6e180c 80%);box-shadow:0 0 90px #f6531955;position:relative}.orbita-planet:after{content:'';position:absolute;border:12px solid #ff9a3a88;border-radius:50%;width:270px;height:60px;left:-57px;top:55px;transform:rotate(-19deg)}@media(max-width:600px){.orbita-prices{grid-template-columns:1fr}.orbita-features{grid-template-columns:1fr}.orbita-wrap{padding-top:48px}}`}</style>
-<div className="orbita-wrap">
-<div className="orbita-planet" aria-hidden="true"/>
-<div className="orbita-kicker">Órbita · Primer aniversario · 10 octubre 2026</div>
-<p className="orbita-sub">PLANETA PERREO</p>
-<h1 className="orbita-title">TRASLADO</h1>
-<div className="orbita-sub">IDA Y VUELTA</div>
-<p className="orbita-desc">Tú disfruta la fiesta. Nosotros nos encargamos del traslado. Servicio privado o compartido, sujeto a disponibilidad. Reserva con anticipación y asegura prioridad en la coordinación de tu viaje.</p>
-<div className="orbita-prices"><div><small>TRASLADO PRIVADO</small><strong>$20.000</strong><span>Precio fijo por vehículo · máximo 4 pasajeros</span></div><div><small>TRASLADO COMPARTIDO</small><strong>$5.000</strong><span>Por persona · hasta 10 cupos</span></div></div><div className="orbita-features">
-<div className="orbita-feature"><strong>IDA Y VUELTA</strong><span>Coordina tu traslado a la fiesta y tu regreso.</span></div>
-<div className="orbita-feature"><strong>PRIVADO O COMPARTIDO</strong><span>Elige la alternativa que mejor se adapte a tu grupo.</span></div>
-<div className="orbita-feature"><strong>RESERVA PREVIA</strong><span>Prioridad de coordinación. Cupos limitados.</span></div>
+return <section className="orbita-page">
+<style>{`
+body:has(.orbita-page) header,body:has(.orbita-page) footer,body:has(.orbita-page) .whatsapp-button,body:has(.orbita-page) a[href*="wa.me"],body:has(.orbita-page) a[href*="api.whatsapp.com"]{display:none!important}
+body:has(.orbita-page) main{padding:0!important;max-width:none!important}
+.orbita-page{min-height:100vh;background:#07090f;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+.orbita-hero{min-height:88vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at 50% 75%,#9d310c55,transparent 55%),linear-gradient(180deg,#05080e 0%,#11121a 58%,#391509 100%);padding:60px 20px}
+.orbita-hero:before{content:'';position:absolute;inset:0;background-image:url('/orbita-bg.webp');background-size:cover;background-position:center;opacity:.85}
+.orbita-hero:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#07090d22 0%,#07090d00 55%,#07090d 100%);pointer-events:none}
+.orbita-hero-content{position:relative;z-index:1;width:min(900px,100%);text-shadow:0 3px 22px #000}
+.orbita-eyebrow{font-size:clamp(13px,2vw,18px);letter-spacing:.22em;color:#ffb487;font-weight:700}
+.orbita-hero h1{font-size:clamp(64px,11vw,150px);font-weight:900;letter-spacing:-.06em;line-height:1;margin:28px 0 0;color:#ff5a16}
+.orbita-hero h2{font-size:clamp(26px,5vw,60px);font-weight:900;line-height:1.1;margin:10px 0 25px}
+.orbita-hero p{font-size:clamp(16px,2vw,21px);margin:0 auto 25px;max-width:680px}
+.orbita-cta{display:inline-block;border:0;border-radius:60px;background:#ff5a16;color:#fff!important;font-weight:900;text-decoration:none;padding:19px 35px;font-size:clamp(18px,2.5vw,25px);box-shadow:0 9px 30px #0009}
+.orbita-prices{max-width:920px;margin:-30px auto 0;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 20px}
+.orbita-price{background:#160e0b;border:1px solid #b44722;border-radius:18px;text-align:center;padding:28px 15px}
+.orbita-price small{display:block;letter-spacing:.15em;font-weight:700;color:#ffad83}
+.orbita-price strong{display:block;font-size:clamp(42px,6vw,70px);margin:8px 0;color:#fff}
+.orbita-price span{color:#f0d6c9}
+.orbita-bottom{text-align:center;padding:30px 20px 75px;color:#d9c4b8}
+.orbita-bottom p{margin:0 auto 22px;max-width:650px;line-height:1.7}
+@media(max-width:650px){.orbita-prices{grid-template-columns:1fr}.orbita-hero{min-height:78vh;padding:45px 18px}.orbita-hero:before{background-position:50% center}.orbita-hero h1{font-size:clamp(52px,14vw,85px)}}
+`}</style>
+<div className="orbita-hero"><div className="orbita-hero-content">
+<div className="orbita-eyebrow">ÓRBITA · PRIMER ANIVERSARIO</div>
+<h2>PLANETA PERREO</h2><h1>TRASLADO</h1>
+<p style={{letterSpacing:'.25em',fontWeight:800}}>IDA Y VUELTA</p>
+<p>Prioridad con reserva previa · Cupos limitados</p>
+<a className="orbita-cta" href="https://ig.me/m/lamatravelers" target="_blank" rel="noopener noreferrer">ESCRÍBENOS AL DM ↗</a>
+</div></div>
+<div className="orbita-prices">
+<div className="orbita-price"><small>PRIVADO</small><strong>$20.000</strong><span>Precio fijo · Hasta 4 pasajeros</span></div>
+<div className="orbita-price"><small>COMPARTIDO</small><strong>$5.000</strong><span>Por persona · Hasta 10 cupos</span></div>
 </div>
-<a className="orbita-button" href={dm} target="_blank" rel="noopener noreferrer">ESCRÍBENOS AL DM ↗</a>
-<p className="orbita-note">Envía «ÓRBITA», cantidad de pasajeros y horario deseado.<br/>La reserva queda confirmada una vez validado el pago y la disponibilidad.</p>
-<p className="orbita-note" style={{marginTop:70}}>San Pedro de Atacama · Traslado operado por LAMA Travelers</p>
-</div></div>;
+<div className="orbita-bottom"><p>Reserva tu traslado para Planeta Perreo en San Pedro de Atacama. Escríbenos «ÓRBITA» por Instagram e indica el número de pasajeros. Confirmación sujeta a disponibilidad y pago validado.</p><a className="orbita-cta" href="https://ig.me/m/lamatravelers" target="_blank" rel="noopener noreferrer">RESERVAR POR INSTAGRAM ↗</a></div>
+</section>;
 }

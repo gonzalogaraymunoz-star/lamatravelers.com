@@ -6,7 +6,7 @@ export default function TrasladosOrbitaOct() {
       body:has(.orbita-landing) main{padding:0!important;max-width:none!important}
       html{scroll-behavior:smooth}
       .orbita-landing{min-height:100vh;background:#08090e;color:#fff;font-family:Arial,Helvetica,sans-serif}
-      .orbita-hero{position:relative;width:100%;max-width:1448px;margin:0 auto;aspect-ratio:1448/1086;background:#08090e url("https://lpirjwifzosdzgdncsbt.supabase.co/functions/v1/publish-orbita-poster") center/100% 100% no-repeat;overflow:hidden}
+      .orbita-hero{position:relative;width:100%;max-width:1448px;margin:0 auto;aspect-ratio:1448/1086;background:#08090e url("https://lpirjwifzosdzgdncsbt.supabase.co/storage/v1/object/public/brand-assets/lama-travelers/orbita/planeta-perreo-original.png") center/100% 100% no-repeat;overflow:hidden}
       .orbita-hotspot{position:absolute;display:block;z-index:2;border-radius:40px;cursor:pointer}
       .orbita-hotspot:focus-visible{outline:3px solid #fff;outline-offset:4px;background:#ffffff20}
       .orbita-dm-top{top:2.5%;right:8.4%;width:12.3%;height:5.2%}
